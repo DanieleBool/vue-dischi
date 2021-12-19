@@ -29,16 +29,27 @@ export default {
         img{
             width: 100%;
             aspect-ratio: 1/1;
+            cursor: pointer;
         }
 
         h4{
         text-transform: uppercase;
+        cursor: pointer;
+        }
+
+        h4:hover{
+            text-decoration: underline;
         }
 
         p{
             color: gray;
             margin: 0;
-        }    
+            cursor: pointer;
+        }
+        
+            p:hover{
+            text-decoration: underline;
+        }
     }
 
 </style>
