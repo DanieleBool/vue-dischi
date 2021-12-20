@@ -1,12 +1,14 @@
 <template>
     <div class="container">
-        <SearchBar @search="searchGenre" @reset="resetAlbum"/>
+        <div>
+            <SearchBar @search="searchGenre" @reset="resetGenre"/>
+        </div>
 
         <!-- v-if per il loader -->
         <div v-if="title != null" class="row">
         
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5">
-            <div class="col" v-for="(titles, index) in genreFilter" :key="index">
+            <div class="col" v-for="(titles, index) in title" :key="index"> // genreFilter
                 <AlbumCard :info="titles"/>
             </div>
         </div>
@@ -35,9 +37,10 @@ export default {
         return{
             title: null,
             loader: false,
-            genreFilter: null,
+            filterValue: "",
         }
     },
+
     created() {
         axios.get('https://flynn.boolean.careers/exercises/api/array/music')
         .then((response) => {
@@ -50,17 +53,18 @@ export default {
             console.log(error);
         });
     },
+
     methods:{
         searchGenre(payload){
             this.filterValue = payload;
         },
-        reset(){
+        resetGenre(){
             this.filterValue = "";
         },
     },
 
     computed:{
-        genreFiltered(){
+        genreFilter(){
                 return this.albums.filter((elm) => {
                 if(elm.titles.toLowerCase().includes(this.filterValue.toLowerCase())) {
                     return elm;
